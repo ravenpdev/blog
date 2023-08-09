@@ -5,6 +5,9 @@
 
   <div>
     <%= post.body %>
-  </div>
 
+    <div>
+      <span class="badge bg-primary"><%= pluralize(post.views, "view") %></span>
+    </div>
+  </div>
 </div>
