@@ -9,6 +9,11 @@ export default class extends Controller {
     event.stopPropagation();
     const formId = event.params["form"];
     const commentBodyId = event.params["body"];
+
     const form = document.getElementById(formId);
+    form.classList.toggle("d-none");
+
+    const commentBody = document.getElementById(commentBodyId);
+    commentBody.classList.toggle("d-none");
   }
 }

@@ -1,0 +1,31 @@
+<div class="container comment-<%= comment.id %> border p-3 mt-1">
+  <p class="p-0 m-0">
+    <small>Created by: <%= link_to comment.user.name, profile_path(comment.user.id) %></small>
+  </p>
+  <% if (comment.updated_at - comment.created_at) > 1 %>
+    <span>Edited <%= time_ago_in_words(comment.updated_at) %> ago</span>
+  <% else %>
+    <p class="p-0 m-0">
+      <small>Posted: <%= time_ago_in_words(comment.created_at) %></small>
+    </p>
+  <% end %>
+  <% if current_user == comment.user %>
+    <div class="d-flex justify-content-end p-2 gap-3">
+      <!-- <%= button_to "Delete", [post, comment], class:"btn btn-danger", action: "delete", method: :delete, data: { confirm: "Are you sure?" } %> -->
+      <%= link_to "Edit", nil, remote: true, class:"btn btn-warning", 
+        data: { controller: "comments", 
+                action: "comments#toggleForm",
+                comments_form_param: "edit-form-#{comment.id}", 
+                comments_body_param: "comment-body-#{comment.id}"
+        } %>
+      <%= link_to "Delete", [post, comment], data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    </div>
+    <div id="edit-form-<%= comment.id %>" class="d-none">
+      <%= render 'comments/form', post: @post, comment: comment, submit_label: "Update" %>
+    </div>
+  <% end %>
+  <hr>
+  <div id="comment-body-<%= comment.id %>">
+    <%= comment.body %>
+  </div>
+</div>
