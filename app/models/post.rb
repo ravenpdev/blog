@@ -4,6 +4,9 @@ class Post < ApplicationRecord
 
   belongs_to :user
   has_many :comments, dependent: :destroy
+
+  has_noticed_notifications model_name: 'Notification'
+
   # after_create :oncreate
   #
   # def oncreate
